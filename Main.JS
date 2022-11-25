@@ -1,53 +1,53 @@
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  ////////////////////////////////////////////////// GAME START /////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- 
+
 var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
- 
- 
+
+
 var Envo = {
     Time: "Day",
     Wave: 0,
     Weather: "Snow",
 }
- 
+
 var Plr = {
     x: -150,
     y: -150,
- 
+
     yv:0,
     xv:0,
- 
+
     xxv:0,
     yyv:0,
 }
- 
+
 var inputs = {
     w: false,
     a: false,
     s: false,
     d: false,
- 
+
     x:0,
     y:0,
 }
- 
- 
+
+
 var enemies = []
- 
+
 for (var balls=0;balls<100;balls++){
     enemies.push([Math.random() * 10000, Math.random() * 10000, 0])
 }
- 
- 
+
+
 //IMAGES
 const img = new Image();   // Create new img element
 img.src = ' https://media.discordapp.net/attachments/1030227762897756192/1030228543902322768/unknown.png';
- 
+
 //done omg :DDDD
- 
- 
+
+
 var MAPX = 40
 var MAPY = 40
 var Map = [
@@ -70,10 +70,10 @@ var Map = [
     [1,0,0,0,0,0,2,0,0,1,1,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,2,0,0,1,1,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1],
+    [1,0,1,0,0,2,0,0,0,0,0,1,1,0,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,1,0,0,2,0,0,0,0,0,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1],
+    [1,0,1,0,0,1,0,0,0,0,0,1,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1],
+    [1,0,1,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,1,1,1,0,1,1,1,0,1],
     [1,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,0,1],
@@ -92,25 +92,25 @@ var Map = [
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
- 
+
 //SPRITES
- 
+
 document.addEventListener('keydown', function(e) {
     if (e.which === 65 ) {
         inputs.a=true
- 
+
     }
     else if (e.which === 68 ) {
         inputs.d=true
- 
+
     }
     else if (e.which === 87 ) {
         inputs.w=true
- 
+
     }
     else if (e.which === 83 ) {
         inputs.s=true
- 
+
     }
 })
 document.addEventListener('keyup', function(e) {
@@ -127,91 +127,91 @@ document.addEventListener('keyup', function(e) {
         inputs.s=false
     }
 })
- 
+
 document.addEventListener('mousemove', function(e) {
     inputs.x = e.clientX
     inputs.y = e.clientY
 })
- 
+
 var angle = 0
 var time = 1
- 
+
 //functions
- 
- 
+
+
 function rand(min,max){
     return (Math.random() * max) + min
 }
- 
+
 function lerp(a,b,c){
     return a + (b-a) * c
 }
- 
- 
+
+
 //loops
-function loop() {
+function loop() { 
     context.clearRect(0,0,1000,1000)
     context.fillStyle = `rgb(7,7,14)`
     context.fillRect(0,0,2000,2000)
- 
- 
- 
+
+
+
     let mapu1 = []
     for(x=0;x<MAPX;x++){
         for(y=0;y<MAPY;y++){
- 
+
             if(Map[y][x] == 0){
                 context.fillStyle = `rgb(25,25,30)`
             }
             else if(Map[y][x] == 2){
                 context.fillStyle = `rgb(55,55,155)`
             }
- 
+
             else{
                 mapu1.push([x,y])
                 context.fillStyle = `rgb(155,55,55)`
             }
             context.fillRect(x*75+Plr.x,y*75+Plr.y,66,66)
- 
-        }
+
+        } 
     }
- 
- 
- 
+
+
+
     for (let height = 0; height < 15; height++){
         for (ind = 0; ind<mapu1.length;ind++){
             const nH = (1+((height)/90))
- 
+
             context.fillStyle = `rgb(${155*1+height},${55*1+height},${55*1+height})`
- 
+
             context.fillRect((mapu1[ind][0]*75 + Plr.x)*nH - (height*5) ,(mapu1[ind][1]*75 + Plr.y)*nH - (height*5),66,66)
         }
     }
- 
+
     for(var en = 0; en < enemies.length;en++){
         context.fillStyle = `rgb(50,100,50)`
         //context.fillRect(Plr.x+enemies[en][0],Plr.y+enemies[en][1],19,19)
         context.drawImage(img, Plr.x+enemies[en][0],Plr.y+enemies[en][1]);
         var enem = enemies[en]
         var dist = Math.abs(enem[0] - Plr.x) + Math.abs(enem[1] - Plr.y)/time
-       
+        
     }
- 
+
     context.fillStyle = `rgb(255,125,125)`
- 
+
     if (inputs.a==true){
         Plr.xv -= 2
     }
- 
+
     if (inputs.d==true){
         Plr.xv += 2
     }
- 
- 
+
+
     if (inputs.w==true){
         Plr.yv -= 2
     }
- 
+
     if (inputs.s==true){
         Plr.yv += 2
     }
@@ -228,40 +228,39 @@ function loop() {
     if (Math.abs(Plr.yv) > 16){
         Plr.yv = 16 * (Math.abs(Plr.yv)/Plr.yv)
     }
- 
- 
+  
+
     Plr.x -= Plr.xv
     if(Map[40 - (Math.floor(Plr.y/75)+34)][40 - (Math.floor(Plr.x/75)+34)]==1){
         Plr.x += Plr.xv
         Plr.xv = 0
     }
- 
+
     Plr.y -= Plr.yv
     if(Map[40 - (Math.floor(Plr.y/75)+34)][40 - (Math.floor(Plr.x/75)+34)]==1){
         Plr.y += Plr.yv
         Plr.yv = 0
     }
- 
- 
- 
-    context.fillRect(500-(Plr.xv),500-(Plr.yv),15,15)
- 
-    context.fillStyle = `rgb(125,125,125)`
-   
-    context.fillRect((435+inputs.x/15) - (Plr.xv*1.5),(470+inputs.y/15) - (Plr.yv*1.5),11,11)
- 
- 
-    context.fillStyle = `rgb(255,0,0)`
- 
- 
- 
-    requestAnimationFrame(loop);
- 
-};
- 
- 
- 
- 
-// start the game
-requestAnimationFrame(loop)
 
+
+
+    context.fillRect(500-(Plr.xv),500-(Plr.yv),15,15)
+
+    context.fillStyle = `rgb(125,125,125)`
+    
+    context.fillRect((435+inputs.x/15) - (Plr.xv*1.5),(470+inputs.y/15) - (Plr.yv*1.5),11,11)
+
+
+    context.fillStyle = `rgb(255,0,0)`
+
+
+
+    requestAnimationFrame(loop);
+
+};
+
+
+
+
+// start the game
+requestAnimationFrame(loop) 
