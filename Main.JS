@@ -166,13 +166,15 @@ function loop() {
         } 
     }
 
-    for (let height = 0; height < 25; height++){
+    for (let height = 0; height < 15; height++){
         for (ind = 0; ind<mapu1.length;ind++){
-            const nH = 1+(height/150)
+            const nH = 1+(height/90)
             context.fillStyle = `rgb(${155/nH},${55/nH},${55/nH})`
-            context.fillRect((mapu1[ind][0]*75 + Plr.x)*nH - (height*2) ,(mapu1[ind][1]*75 + Plr.y)*nH - (height*2) ,70,70)
+            context.fillRect((mapu1[ind][0]*75 + Plr.x)*nH - (height*5.4) ,(mapu1[ind][1]*75 + Plr.y)*nH - (height*5.4) ,70,70)
         }
     }
+
+    context.fillRect(500-(Plr.xv/3),500-(Plr.yv/3),15,15)
 
     for(var en = 0; en < enemies.length;en++){
         context.fillStyle = `rgb(0,0,255)`
@@ -230,7 +232,6 @@ function loop() {
 
 
 
-    context.fillRect(500-(Plr.xv),500-(Plr.yv),15,15)
 
     context.fillStyle = `rgb(125,125,125)`
     
