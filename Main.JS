@@ -8,7 +8,7 @@ var context = canvas.getContext('2d');
 
 var Envo = {
     Time: "Day",
-    Wave: 0,
+    Wave: 99,
     Weather: "Snow",
 }
 
